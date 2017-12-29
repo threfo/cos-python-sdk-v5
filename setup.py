@@ -15,13 +15,13 @@ def long_description():
 
 
 setup(
-    name='cos-python-sdk-v5',
-    version='1.3.0',
+    name='threfo-cos-python-sdk',
+    version='1.5.0',
     url='https://www.qcloud.com/',
     license='MIT',
     author='tiedu, lewzylu, channingliu',
     author_email='dutie123@qq.com',
-    description='cos-python-sdk-v5',
+    description='threfo-cos-python-sdk',
     long_description=long_description(),
     packages=find_packages(),
     install_requires=requirements()
