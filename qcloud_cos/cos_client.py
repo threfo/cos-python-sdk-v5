@@ -21,6 +21,8 @@ from .cos_threadpool import SimpleThreadPool
 from .cos_exception import CosClientError
 from .cos_exception import CosServiceError
 from importlib import reload
+from time import time
+
 
 logger = logging.getLogger(__name__)
 
@@ -130,6 +132,7 @@ class CosS3Client(object):
 
     def send_request(self, method, url, timeout=30, **kwargs):
         """封装request库发起http请求"""
+        st = time()
         if self._conf._timeout is not None:  # 用户自定义超时时间
             timeout = self._conf._timeout
         if self._conf._token is not None:
@@ -147,9 +150,11 @@ class CosS3Client(object):
                     res = self._session.delete(url, timeout=timeout, **kwargs)
                 elif method == 'HEAD':
                     res = self._session.head(url, timeout=timeout, **kwargs)
+                print('cos.cos_client.send_request.debug : {} S'.format(time() - st))
                 if res.status_code < 300:
                     return res
         except Exception as e:  # 捕获requests抛出的如timeout等客户端错误,转化为客户端错误
+            print('cos.cos_client.send_request.debug : {} S'.format(time() - st))
             logger.exception('url:%s, exception:%s' % (url, str(e)))
             raise CosClientError(str(e))
 
