@@ -150,11 +150,11 @@ class CosS3Client(object):
                     res = self._session.delete(url, timeout=timeout, **kwargs)
                 elif method == 'HEAD':
                     res = self._session.head(url, timeout=timeout, **kwargs)
-                logger.warning('cos.cos_client.send_request.debug : {} S'.format(time() - st))
+                # logger.warning('cos.cos_client.send_request.debug : {} S'.format(time() - st))
                 if res.status_code < 300:
                     return res
         except Exception as e:  # 捕获requests抛出的如timeout等客户端错误,转化为客户端错误
-            logger.warning('cos.cos_client.send_request.debug : {} S'.format(time() - st))
+            # logger.warning('cos.cos_client.send_request.debug : {} S'.format(time() - st))
             logger.exception('url:%s, exception:%s' % (url, str(e)))
             raise CosClientError(str(e))
 
